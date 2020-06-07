@@ -4,6 +4,8 @@ import Header from "./../header/Header";
 import MobileFilter from "./../mobile-filter/Mobile-Filter";
 import PcFilter from "./../pc-filter/pc-filter";
 import PcFilterOptions from "./../pc-filter-options/pc-filter-options";
+import Results from "./../results/results";
+import youtube from "../../api/youtube";
 
 class App extends Component {
   state = {
@@ -15,6 +17,20 @@ class App extends Component {
       sortBy: "relevance",
     },
     videos: [],
+  };
+
+  componentDidMount = async () => {
+    const { data } = await youtube.get("search", {
+      params: {
+        part: "snippet",
+        maxResults: 5,
+        key: "AIzaSyBEcw9GPrjGJ9j6OiiueR98yduEVslI_ws",
+        q: "React",
+      },
+    });
+
+    console.log(data);
+    this.setState({ videos: data.items });
   };
 
   handleSearchModeToggle = () => {
@@ -80,6 +96,7 @@ class App extends Component {
             handleFilterChangePC={this.handleFilterChangePC}
           />
         </div>
+        <Results videos={this.state.videos} />
       </React.Fragment>
     );
   }
