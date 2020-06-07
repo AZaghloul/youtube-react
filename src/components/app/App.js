@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "../../style.css";
 import Header from "./../header/Header";
+import MobileFilter from "./../mobile-filter/Mobile-Filter";
 
 class App extends Component {
   state = {
@@ -23,6 +24,13 @@ class App extends Component {
     if (this.state.searchMode) this.setState({ searchMode: false });
   };
 
+  //For Mobile
+  handleFilterChange = (e) => {
+    const filter = { ...this.state.filter };
+    filter[e.target.id] = e.target.value;
+    this.setState({ filter: filter });
+  };
+
   render() {
     return (
       <React.Fragment>
@@ -31,6 +39,10 @@ class App extends Component {
             searchMode={this.state.searchMode}
             handleSearchModeToggle={this.handleSearchModeToggle}
             handleCloseSerachBar={this.handleCloseSerachBar}
+          />
+          <MobileFilter
+            filter={this.state.filter}
+            handleFilterChange={this.handleFilterChange}
           />
         </div>
       </React.Fragment>
