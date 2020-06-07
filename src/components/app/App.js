@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "../../style.css";
+import Header from "./../header/Header";
 
 class App extends Component {
   state = {
@@ -13,10 +14,25 @@ class App extends Component {
     videos: [],
   };
 
+  handleSearchModeToggle = () => {
+    const searchMode = !this.state.searchMode;
+    this.setState({ searchMode });
+  };
+
+  handleCloseSerachBar = () => {
+    if (this.state.searchMode) this.setState({ searchMode: false });
+  };
+
   render() {
     return (
       <React.Fragment>
-        <h1>Hello Youtube</h1>
+        <div className="header-container">
+          <Header
+            searchMode={this.state.searchMode}
+            handleSearchModeToggle={this.handleSearchModeToggle}
+            handleCloseSerachBar={this.handleCloseSerachBar}
+          />
+        </div>
       </React.Fragment>
     );
   }
