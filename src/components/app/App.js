@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import "../../style.css";
 import Header from "./../header/Header";
 import MobileFilter from "./../mobile-filter/Mobile-Filter";
+import PcFilter from "./../pc-filter/pc-filter";
+import PcFilterOptions from "./../pc-filter-options/pc-filter-options";
 
 class App extends Component {
   state = {
@@ -31,6 +33,28 @@ class App extends Component {
     this.setState({ filter: filter });
   };
 
+  //For PC
+  handleFilterChangePC = (filterName, value) => {
+    const defaultValues = {
+      type: "all",
+      uploadDate: "any time",
+      sortBy: "relevance",
+    };
+
+    const filter = { ...this.state.filter };
+    if (filter[filterName] === value) {
+      filter[filterName] = defaultValues[filterName];
+    } else {
+      filter[filterName] = value;
+    }
+    this.setState({ filter });
+  };
+
+  handleFilterModeToggle = () => {
+    const filterMode = !this.state.filterMode;
+    this.setState({ filterMode });
+  };
+
   render() {
     return (
       <React.Fragment>
@@ -43,6 +67,17 @@ class App extends Component {
           <MobileFilter
             filter={this.state.filter}
             handleFilterChange={this.handleFilterChange}
+          />
+        </div>
+        <div
+          className={
+            this.state.filterMode ? "container filter-mode" : "container"
+          }
+        >
+          <PcFilter handleFilterModeToggle={this.handleFilterModeToggle} />
+          <PcFilterOptions
+            filter={this.state.filter}
+            handleFilterChangePC={this.handleFilterChangePC}
           />
         </div>
       </React.Fragment>
