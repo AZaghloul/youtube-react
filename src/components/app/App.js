@@ -15,6 +15,7 @@ import ChannelPage from "../channel-page/channel-page";
 
 class App extends Component {
   state = {
+    apiKey: "AIzaSyCBjdH4LEzrxhwE9AYvFCJSWdIMrgk8Vys",
     isPageLoading: true,
     isShowMoreLoading: false,
     isSearchLoading: false,
@@ -23,7 +24,7 @@ class App extends Component {
     filter: {
       type: "all",
       uploadDate: "any time",
-      sortBy: "Relevance",
+      sortBy: "relevance",
     },
     query: "",
     channel: "",
@@ -49,7 +50,7 @@ class App extends Component {
         params: {
           part: "snippet",
           maxResults: 5,
-          key: "AIzaSyDP4sLNAUubFaKWqN3z5eFDrQa2tebVPWU",
+          key: this.state.apiKey,
           q: this.state.query,
           order: this.getOrderBy(),
           type: this.state.filter.type,
@@ -76,7 +77,7 @@ class App extends Component {
     const { data } = await youtube.get("channels", {
       params: {
         part: "snippet,contentDetails,statistics,brandingSettings",
-        key: "AIzaSyDP4sLNAUubFaKWqN3z5eFDrQa2tebVPWU",
+        key: this.state.apiKey,
         id: this.state.channel,
       },
     });
@@ -84,7 +85,7 @@ class App extends Component {
     const { data: channelPlaylists } = await youtube.get("playlists", {
       params: {
         part: "snippet,contentDetails",
-        key: "AIzaSyDP4sLNAUubFaKWqN3z5eFDrQa2tebVPWU",
+        key: this.state.apiKey,
         channelId: this.state.channel,
         maxResults: 5,
       },

@@ -4,7 +4,6 @@ import ChannelResult from "../channel-result/channel-result";
 import PlaylistResult from "../playlist-result/playlist-result";
 
 const Results = (props) => {
-  console.log(props.videos);
   return (
     <React.Fragment>
       <section className="results">
