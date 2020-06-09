@@ -328,6 +328,9 @@ html {
   .container {
     width: 1140px; } }
 
+html {
+  font-family: Roboto, "Open Sans", sans-serif; }
+
 /**
  * Basic typography style for copy text
  */
@@ -594,6 +597,7 @@ header {
       content: " ";
       position: absolute;
       z-index: 111;
+      z-index: -1;
       width: 70px;
       height: 100px;
       top: -5px;
@@ -616,7 +620,8 @@ header {
       width: 90px;
       height: 130px;
       top: -5px;
-      left: -105px; } }
+      left: -105px;
+      z-index: -1; } }
 
 /* --------------------- Mobile styles --------------------- */
 .show-more {
@@ -836,3 +841,147 @@ header {
   z-index: 11111;
   background-color: brown;
   transition: width 500ms ease-out; }
+
+.banner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden; }
+  .banner__img {
+    flex-shrink: 0;
+    width: auto;
+    height: 80px;
+    min-width: 100%;
+    min-height: 100%; }
+
+/* --------------------- small tablet styles --------------------- */
+@media screen and (min-width: 620px) {
+  .banner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; }
+    .banner__img {
+      flex-shrink: 0;
+      width: auto;
+      height: 120px;
+      min-width: 100%;
+      min-height: 100%; } }
+
+.channel-intro {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  position: relative;
+  background-color: #e0e0e0; }
+  .channel-intro .channel-intro__name {
+    font-size: 25px;
+    margin: 0;
+    margin-left: 150px;
+    margin-top: 20px; }
+  .channel-intro .channel-intro__details {
+    display: flex;
+    justify-content: center;
+    align-items: center; }
+    .channel-intro .channel-intro__details img {
+      width: 30px;
+      margin-right: 5px; }
+    .channel-intro .channel-intro__details .channel-intro__subscribe {
+      cursor: pointer;
+      color: red;
+      margin-right: 15px; }
+    .channel-intro .channel-intro__details .channel-intro__image {
+      position: absolute;
+      width: 80px;
+      top: -40px;
+      left: 75px;
+      border-radius: 50%; }
+
+/* --------------------- small tablet styles --------------------- */
+@media screen and (min-width: 620px) {
+  .channel-intro .channel-intro__name {
+    margin-top: 30px; }
+  .channel-intro .channel-intro__details img {
+    margin-right: 10px; }
+  .channel-intro .channel-intro__details .channel-intro__subscribe {
+    margin-right: 30px; }
+  .channel-intro .channel-intro__details .channel-intro__image {
+    width: 100px;
+    top: -50px;
+    left: 60px;
+    border-radius: 50%; } }
+
+.video {
+  border-bottom: 2px solid #e0e0e0; }
+  .video__embed {
+    width: 100%;
+    height: 315px;
+    margin-bottom: 10px; }
+  .video__info {
+    margin-left: 10px; }
+  .video__title {
+    font-size: 25px;
+    margin: 0px; }
+  .video__channel-name {
+    font-size: 18px; }
+  .video__views {
+    font-size: 14px;
+    margin-left: 5px;
+    color: #afafaf; }
+  .video__controls {
+    display: flex;
+    justify-content: space-between;
+    padding-right: 20px; }
+  .video__like {
+    margin-right: 20px; }
+  .video__share {
+    margin: 0px 20px; }
+  .video i {
+    font-size: 20px;
+    cursor: pointer; }
+
+.video__info--pc {
+  display: none;
+  border-bottom: 2px solid #e0e0e0; }
+  .video__info--pc .video__name {
+    display: none; }
+  .video__info--pc .video__statistics {
+    display: flex;
+    justify-content: space-between; }
+  .video__info--pc .video__dislike {
+    margin-right: 20px; }
+
+.channel-info-pc {
+  display: none;
+  align-items: center;
+  margin: 20px 0px; }
+  .channel-info-pc img {
+    height: 60px;
+    border-radius: 50%; }
+  .channel-info-pc div {
+    margin-left: 20px; }
+    .channel-info-pc div h3 {
+      margin: 0px; }
+    .channel-info-pc div p {
+      margin: 0px;
+      font-size: 14px;
+      color: #a5a5a5; }
+
+/* --------------------- small tablet styles --------------------- */
+@media screen and (min-width: 620px) {
+  .video__info {
+    display: none; }
+  .video__info--pc {
+    display: block; }
+  .channel-info-pc {
+    display: flex; } }
+
+/*--------------------- large tablet & laptop styles ---------------------*/
+@media screen and (min-width: 960px) {
+  .video__embed {
+    height: 400px; } }
+
+/*--------------------- desktop styles ---------------------*/
+@media screen and (min-width: 1200px) {
+  .video__embed {
+    height: 450px; } }

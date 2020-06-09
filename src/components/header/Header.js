@@ -5,12 +5,18 @@ import qs from "query-string";
 class Header extends Component {
   componentDidMount = () => {
     const { query } = qs.parse(this.props.location.search);
-    this.props.handleSearchOnMount(query);
+    const { channelid } = qs.parse(this.props.location.search);
+    if (query) this.props.handleSearchOnMount(query);
+    if (channelid) this.props.handleChannelOnMount(channelid);
   };
 
   componentDidUpdate = (prevProps) => {
+    const { query } = qs.parse(this.props.location.search);
+    const { channelid } = qs.parse(this.props.location.search);
+
     if (prevProps.location.search !== this.props.location.search) {
-      this.props.handleSearch();
+      if (query) this.props.handleSearch();
+      if (channelid) this.props.handleChannelOnMount(channelid);
     }
   };
 
@@ -42,11 +48,12 @@ class Header extends Component {
         <button
           onClick={this.props.handleCloseSerachBar}
           className="header__close-icon"
-        />
-        <i
-          onClick={this.props.handleSearchModeToggle}
-          className="fa fa-search"
-        ></i>
+        >
+          <i
+            onClick={this.props.handleSearchModeToggle}
+            className="fa fa-search"
+          ></i>
+        </button>
       </header>
     );
   }

@@ -11,6 +11,7 @@ import MobileFilter from "./../mobile-filter/Mobile-Filter";
 import PcFilter from "./../pc-filter/pc-filter";
 import PcFilterOptions from "./../pc-filter-options/pc-filter-options";
 import Results from "./../results/results";
+import ChannelPage from "../channel-page/channel-page";
 
 class App extends Component {
   state = {
@@ -25,13 +26,16 @@ class App extends Component {
       sortBy: "Relevance",
     },
     query: "",
+    channel: "",
+    video: "",
     publishedAfter: new Date(),
     videos: [],
+    channelData: {},
+    channelPlaylists: [],
   };
 
   componentDidMount = () => {
     window.addEventListener("scroll", this.handleScroll);
-    this.getChannelData();
   };
 
   //Call Backend
@@ -45,7 +49,7 @@ class App extends Component {
         params: {
           part: "snippet",
           maxResults: 5,
-          key: "AIzaSyApje65ygxyiAXTx40R93DRA_ll-0hqLmo",
+          key: "AIzaSyDP4sLNAUubFaKWqN3z5eFDrQa2tebVPWU",
           q: this.state.query,
           order: this.getOrderBy(),
           type: this.state.filter.type,
@@ -67,38 +71,33 @@ class App extends Component {
     }
   };
 
-  getChannelData = async (pageToken) => {
-    // if (this.state.query) {
-    //Clone
-    // let videos = [...this.state.videos];
-
-    //Edit
+  getChannelData = async () => {
+    console.log("start get channel data");
     const { data } = await youtube.get("channels", {
       params: {
         part: "snippet,contentDetails,statistics,brandingSettings",
-        // maxResults: 5,
-        key: "AIzaSyApje65ygxyiAXTx40R93DRA_ll-0hqLmo",
-        // q: this.state.query,
-        id: "UCS_v9N-bUzuhwcrlCZbgj6Q",
-        // order: this.getOrderBy(),
-        // type: this.state.filter.type,
-        // publishedAfter: this.calculateDate(),
-        // pageToken: pageToken ?? "",
+        key: "AIzaSyDP4sLNAUubFaKWqN3z5eFDrQa2tebVPWU",
+        id: this.state.channel,
       },
     });
-    console.log(data);
-    // if (!pageToken)
-    //   this.setState({
-    //     videos: data.items,
-    //     pageToken: data.nextPageToken,
-    //     isPageLoading: false,
-    //   });
-    // else {
-    //   videos = [...videos, ...data.items];
-    //   //Update State
-    //   this.setState({ videos, pageToken: data.nextPageToken });
-    // }
-    // }
+
+    const { data: channelPlaylists } = await youtube.get("playlists", {
+      params: {
+        part: "snippet,contentDetails",
+        key: "AIzaSyDP4sLNAUubFaKWqN3z5eFDrQa2tebVPWU",
+        channelId: this.state.channel,
+        maxResults: 5,
+      },
+    });
+
+    this.setState(
+      {
+        channelData: data.items[0],
+        channelPlaylists,
+        isPageLoading: false,
+      },
+      () => console.log("end get channel data and update state")
+    );
   };
 
   //Helper Functions
@@ -191,6 +190,15 @@ class App extends Component {
     this.setState({ query: query }, async () => await this.getData());
   };
 
+  handleChannelOnMount = async (channel) => {
+    this.setState(
+      { channel: channel, query: "", isSearchLoading: true },
+      async () => await this.getChannelData()
+    );
+
+    this.setState({ isSearchLoading: false });
+  };
+
   handleShowMore = async () => {
     this.setState({ isShowMoreLoading: true });
     await this.getData(this.state.pageToken);
@@ -220,14 +228,17 @@ class App extends Component {
         <div onScroll={this.handleScroll}>
           <div className="header-container">
             <Route
-              path="/search"
+              path="/"
               render={(props) => (
                 <Header
                   {...props}
                   query={this.state.query}
+                  channel={this.state.channel}
+                  video={this.state.video}
                   handleQueryChange={this.handleQueryChange}
                   handleSearch={this.handleSearch}
                   handleSearchOnMount={this.handleSearchOnMount}
+                  handleChannelOnMount={this.handleChannelOnMount}
                   searchMode={this.state.searchMode}
                   handleSearchModeToggle={this.handleSearchModeToggle}
                   handleCloseSerachBar={this.handleCloseSerachBar}
@@ -235,9 +246,14 @@ class App extends Component {
               )}
             />
 
-            <MobileFilter
-              filter={this.state.filter}
-              handleFilterChange={this.handleFilterChange}
+            <Route
+              path="/search"
+              render={(props) => (
+                <MobileFilter
+                  filter={this.state.filter}
+                  handleFilterChange={this.handleFilterChange}
+                />
+              )}
             />
           </div>
           {this.state.isPageLoading ? (
@@ -265,7 +281,6 @@ class App extends Component {
               }
             >
               <Route
-                exact
                 path="/search"
                 render={(props) => (
                   <React.Fragment>
@@ -287,6 +302,20 @@ class App extends Component {
                   </React.Fragment>
                 )}
               />
+              {this.state.isSearchLoading ? (
+                ""
+              ) : (
+                <Route
+                  path="/channels"
+                  render={(props) => (
+                    <ChannelPage
+                      {...props}
+                      channelData={this.state.channelData}
+                      channelPlaylists={this.state.channelPlaylists.items}
+                    />
+                  )}
+                />
+              )}
             </div>
           )}
         </div>

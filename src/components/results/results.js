@@ -4,6 +4,7 @@ import ChannelResult from "../channel-result/channel-result";
 import PlaylistResult from "../playlist-result/playlist-result";
 
 const Results = (props) => {
+  console.log(props.videos);
   return (
     <React.Fragment>
       <section className="results">
@@ -24,19 +25,19 @@ const Results = (props) => {
       </section>
       <section className="show-more" onClick={props.handleShowMore}>
         {props.isShowMoreLoading ? (
-          <div class="fading-spinner">
-            <div class="circle1 circle"></div>
-            <div class="circle2 circle"></div>
-            <div class="circle3 circle"></div>
-            <div class="circle4 circle"></div>
-            <div class="circle5 circle"></div>
-            <div class="circle6 circle"></div>
-            <div class="circle7 circle"></div>
-            <div class="circle8 circle"></div>
-            <div class="circle9 circle"></div>
-            <div class="circle10 circle"></div>
-            <div class="circle11 circle"></div>
-            <div class="circle12 circle"></div>
+          <div className="fading-spinner">
+            <div className="circle1 circle"></div>
+            <div className="circle2 circle"></div>
+            <div className="circle3 circle"></div>
+            <div className="circle4 circle"></div>
+            <div className="circle5 circle"></div>
+            <div className="circle6 circle"></div>
+            <div className="circle7 circle"></div>
+            <div className="circle8 circle"></div>
+            <div className="circle9 circle"></div>
+            <div className="circle10 circle"></div>
+            <div className="circle11 circle"></div>
+            <div className="circle12 circle"></div>
           </div>
         ) : (
           <p>Show more items</p>
@@ -44,19 +45,19 @@ const Results = (props) => {
       </section>
       <section className="show-more--pc">
         {props.isShowMoreLoading ? (
-          <div class="fading-spinner">
-            <div class="circle1 circle"></div>
-            <div class="circle2 circle"></div>
-            <div class="circle3 circle"></div>
-            <div class="circle4 circle"></div>
-            <div class="circle5 circle"></div>
-            <div class="circle6 circle"></div>
-            <div class="circle7 circle"></div>
-            <div class="circle8 circle"></div>
-            <div class="circle9 circle"></div>
-            <div class="circle10 circle"></div>
-            <div class="circle11 circle"></div>
-            <div class="circle12 circle"></div>
+          <div className="fading-spinner">
+            <div className="circle1 circle"></div>
+            <div className="circle2 circle"></div>
+            <div className="circle3 circle"></div>
+            <div className="circle4 circle"></div>
+            <div className="circle5 circle"></div>
+            <div className="circle6 circle"></div>
+            <div className="circle7 circle"></div>
+            <div className="circle8 circle"></div>
+            <div className="circle9 circle"></div>
+            <div className="circle10 circle"></div>
+            <div className="circle11 circle"></div>
+            <div className="circle12 circle"></div>
           </div>
         ) : (
           <p>Show more items</p>
