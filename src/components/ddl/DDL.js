@@ -4,6 +4,7 @@ const DDL = (props) => {
   return (
     <div className="ddl">
       <select
+        data-testid={props.id}
         id={props.id}
         value={props.value}
         onChange={props.handleFilterChange}

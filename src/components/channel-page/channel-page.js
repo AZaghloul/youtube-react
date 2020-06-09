@@ -2,7 +2,6 @@ import React from "react";
 import PlaylistResult from "./../playlist-result/playlist-result";
 
 const ChannelPage = (props) => {
-  console.log(props.channelData);
   return (
     <React.Fragment>
       {props.channelData.snippet ? (
